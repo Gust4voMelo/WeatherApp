@@ -32,6 +32,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.weatherapp.ui.theme.DataField
+import com.weatherapp.ui.theme.PasswordField
 import com.weatherapp.ui.theme.WeatherAppTheme
 
 class LoginActivity : ComponentActivity() {
@@ -66,19 +68,16 @@ fun LoginPage(modifier: Modifier = Modifier){
             fontSize = 24.sp
         )
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
+        DataField(
             value = email,
-            label = { Text(text = "Digite seu e-mail") },
-            modifier = modifier.fillMaxWidth(fraction = 0.9f),
-            onValueChange = { email = it }
+            onValueChange = { email = it },
+            labelText = "Digite seu e-mail"
         )
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
+        PasswordField(
             value = password,
-            label = { Text(text = "Digite sua senha") },
-            modifier = modifier.fillMaxWidth(fraction = 0.9f),
             onValueChange = { password = it },
-            visualTransformation = PasswordVisualTransformation()
+            labelText = "Digite sua senha"
         )
         Spacer(modifier = Modifier.size(24.dp))
         Row(modifier = modifier) {
