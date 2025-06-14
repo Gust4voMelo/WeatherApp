@@ -14,7 +14,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HomePage() {
+fun HomePage(viewModel: MainViewModel) {
+    val cityList = viewModel.cities
     Column(
         modifier = Modifier.fillMaxSize()
             .background(Color.Blue)
