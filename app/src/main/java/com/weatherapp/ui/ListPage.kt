@@ -1,4 +1,4 @@
-package com.weatherapp
+package com.weatherapp.ui
 
 import android.app.Activity
 import android.widget.Toast
@@ -18,8 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weatherapp.model.City
 import androidx.compose.foundation.lazy.items
+import com.weatherapp.MainViewModel
 
 @Composable
 fun ListPage(
