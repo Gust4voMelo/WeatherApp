@@ -31,8 +31,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.ktx.auth
+import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.db.fb.toFBUser
+import com.weatherapp.model.User
 import com.weatherapp.ui.theme.DataField
 import com.weatherapp.ui.theme.PasswordField
 import com.weatherapp.ui.theme.WeatherAppTheme
@@ -104,6 +107,7 @@ fun RegisterPage( modifier: Modifier = Modifier){
                                 Toast.makeText(activity,
                                     "Registro OK!", Toast.LENGTH_LONG).show()
                                 activity
+                                FBDatabase().register(User(name, email).toFBUser())
                             } else {
                                 Toast.makeText(activity,
                                     "Registro FALHOU!", Toast.LENGTH_LONG).show()
