@@ -7,9 +7,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
@@ -38,6 +36,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.ktx.auth
+import com.weatherapp.api.WeatherService
 import com.weatherapp.db.fb.FBDatabase
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,8 +46,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val fbDB = remember { FBDatabase() }
+            val weatherService = remember { WeatherService() }
             val viewModel : MainViewModel = viewModel(
-                factory = MainViewModelFactory(fbDB)
+                factory = MainViewModelFactory(fbDB, weatherService)
             )
             var showDialog by remember { mutableStateOf(false) }
             val navController = rememberNavController()
