@@ -27,6 +27,7 @@ import com.weatherapp.model.City
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.LaunchedEffect
 import com.weatherapp.MainViewModel
+import com.weatherapp.ui.nav.Route
 
 @Composable
 fun ListPage(
@@ -51,6 +52,7 @@ fun ListPage(
                 Toast.makeText(activity, "Removido: ${city.name}", Toast.LENGTH_SHORT).show()
             }, onClick = {
                 viewModel.city = city
+                viewModel.page = Route.Home
             })
         }
     }
