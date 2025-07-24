@@ -53,6 +53,8 @@ android {
 
 dependencies {
 
+    implementation("io.coil-kt:coil-compose:2.5.0") // coil
+    implementation("com.squareup.picasso:picasso:2.8") // Picasso
     // Google maps
     implementation("com.google.android.gms:play-services-maps:19.2.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
