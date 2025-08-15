@@ -25,7 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weatherapp.model.City
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import coil.compose.AsyncImage
 import com.weatherapp.MainViewModel
@@ -81,12 +84,26 @@ fun CityItem(
         )
         Spacer(modifier = Modifier.size(12.dp))
         Column(modifier = modifier.weight(1f)) {
-            Text(modifier = Modifier,
-                text = city.name,
-                fontSize = 24.sp)
-            Text(modifier = Modifier,
-                text = city.weather?.desc?:"carregando...",
-                fontSize = 16.sp)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    modifier = Modifier,
+                    text = city.name,
+                    fontSize = 24.sp
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                val icon: ImageVector = if (city.isMonitored)
+                    Icons.Filled.Star else Icons.Outlined.Star
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "Monitorada?",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Text(
+                modifier = Modifier,
+                text = city.weather?.desc ?: "carregando...",
+                fontSize = 16.sp
+            )
         }
         IconButton(onClick = onClose) {
             Icon(Icons.Filled.Close, contentDescription = "Close")
