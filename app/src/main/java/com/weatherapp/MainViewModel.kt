@@ -1,8 +1,10 @@
 package com.weatherapp
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.model.LatLng
 import com.weatherapp.api.WeatherService
 import com.weatherapp.api.toForecast
@@ -13,9 +15,10 @@ import com.weatherapp.db.fb.FBUser
 import com.weatherapp.db.fb.toFBCity
 import com.weatherapp.model.City
 import com.weatherapp.model.User
+import com.weatherapp.monitor.ForecastMonitor
 import com.weatherapp.ui.nav.Route
 
-class MainViewModel (private val db: FBDatabase, private val service : WeatherService): ViewModel(), FBDatabase.Listener {
+class MainViewModel (private val db: FBDatabase, private val service : WeatherService, private val monitor: ForecastMonitor): ViewModel(), FBDatabase.Listener {
     private val _cities = mutableStateMapOf<String, City>()
     val cities : List<City>
         get() = _cities.values.toList()
@@ -58,10 +61,11 @@ class MainViewModel (private val db: FBDatabase, private val service : WeatherSe
         _user.value = user.toUser()
     }
     override fun onUserSignOut() {
-        //TODO("Not yet implemented")
+        monitor.cancelAll()
     }
     override fun onCityAdded(city: FBCity) {
         _cities[city.name!!] = city.toCity()
+        monitor.updateCity(city.toCity())
     }
     override fun onCityUpdated(city: FBCity) {
         val oldCity = _cities[city.name]
@@ -73,11 +77,12 @@ class MainViewModel (private val db: FBDatabase, private val service : WeatherSe
         if (_city.value?.name == city.name) {
             _city.value = _cities[city.name]
         }
+        monitor.updateCity(city.toCity())
     }
     override fun onCityRemoved(city: FBCity) {
         _cities.remove(city.name)
         if (_city.value?.name == city.name) { _city.value = null }
-
+        monitor.cancelCity(city.toCity())
     }
     fun loadWeather(name: String) {
         service.getWeather(name) { apiWeather ->

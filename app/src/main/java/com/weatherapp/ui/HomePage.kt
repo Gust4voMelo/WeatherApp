@@ -35,8 +35,9 @@ import com.weatherapp.R
 fun HomePage(viewModel: MainViewModel) {
     Column {
         if (viewModel.city == null) {
-            Column( modifier = Modifier.fillMaxSize()
-                .background(Color.Blue).wrapContentSize(Alignment.Center)
+            Column(
+                modifier = Modifier.fillMaxSize()
+                    .background(Color.Blue).wrapContentSize(Alignment.Center)
             ) {
                 Text(
                     text = "Selecione uma cidade!",
@@ -65,14 +66,14 @@ fun HomePage(viewModel: MainViewModel) {
                             Icons.Filled.Star else Icons.Outlined.Star
                         Icon(
                             imageVector = icon, contentDescription = "Monitorada?",
-                            modifier = Modifier.size(32.dp).clickable(enabled = viewModel.city != null) {
-                                viewModel.update(
-                                    viewModel.city!!.copy(
-                                        isMonitored = !viewModel.city!!.isMonitored
+                            modifier = Modifier.size(32.dp)
+                                .clickable(enabled = viewModel.city != null) {
+                                    viewModel.update(
+                                        viewModel.city!!.copy(
+                                            isMonitored = !viewModel.city!!.isMonitored
+                                        )
                                     )
-                                )
-                            }
-                        )
+                                })
                     }
                     Spacer(modifier = Modifier.size(12.dp))
                     Text(text = viewModel.city?.weather?.desc ?: "...", fontSize = 22.sp)
